@@ -13,7 +13,7 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 #include <iostream>
-//#include "Assignment1.h"
+#include "OrderedLinkedList.h"
 #include <string>
 #include <sstream>
 
@@ -21,10 +21,9 @@ using namespace std;
 
 int main(){
 
-	cout << "***Sean Hardin's phonebook application***"<< '\n';//introduction
-	//contact* phonebook;//creates the pointer for the array
+	cout << "***Sean Hardin's airline database application***"<< '\n';//introduction
+	//node<Passenger> *flightNo;//creates the pointer for the array
 	//phonebook = new contact[151450];//25 spaces over the initial number of entries
-	int count=0;//variable to keep track of how many entries have been initialized, would have used static variable but unable
 	//since the array initializes them all at once.
 	string temp;//temporary string to read the text file
 	string a,b,c;//temporary variables to hold the first name, last name, and number respectively
@@ -53,6 +52,8 @@ int main(){
 		if (complianceCheckString.length()>1) {//if user inputs more than a char
 			userInput = 'f';//FOR FAILURE TO COMPLY
 		}
+
+		cout << "Please enter the flight number:";
 
 		switch (userInput){//switch statement looks cleaner than nested if loops.
 			case 'A'://capital and lowercase letters for better usability, wasn't sure how to force capitals
