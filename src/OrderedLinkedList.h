@@ -8,19 +8,16 @@
 #ifndef ORDEREDLINKEDLIST_H_
 #define ORDEREDLINKEDLIST_H_
 
+#include "Passenger.h"
 #include "LinkedList.h"
 
-struct OrderedNode : public node{
-
-};
-
 template <class T>
-class OrderedLinkedList : public LinkedList{
+class OrderedLinkedList : public LinkedList<T>{
 	public:
-		void insertOrdered(node * phead);
-		void deleteNode(node * phead);
+		void insertOrdered(node<T> * phead);
+		void deleteNode(node<T> * phead);
 		void searchNode(T* a[]);
-		void listFlight(node * phead);
+		void listFlight(node<T> * phead);
 };
 
 
