@@ -25,6 +25,9 @@ public:
 	void setAddress(string);
 	string getPhoneNo();
 	void setPhoneNo(string);
+	friend bool operator>(Passenger&, Passenger&);
+	friend bool operator==(Passenger&, Passenger&);
+	friend ostream& operator<<(ostream& os, Passenger);
 };
 
 

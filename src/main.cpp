@@ -17,60 +17,54 @@
 #include <string>
 #include <sstream>
 
+
 using namespace std;
+
+int getFlightNumber();
 
 int main(){
 
 	cout << "***Sean Hardin's airline database application***"<< '\n';//introduction
-	//node<Passenger> *flightNo;//creates the pointer for the array
-	//phonebook = new contact[151450];//25 spaces over the initial number of entries
-	//since the array initializes them all at once.
-	string temp;//temporary string to read the text file
-	string a,b,c;//temporary variables to hold the first name, last name, and number respectively
-
-//	while (getline(readIn, temp)){//runs until getline finds no line
-//		stringstream temp2;//initialize inside so data resets each loop
-//		temp2<<temp;//converting string into stream, so far this was the only way i found to
-//		//read the file with a loop without losing data or hardcoding the limit
-//		temp2>>a>>b>>c;//stream values as described in initialization
-//		a=a+' '+b;
-//		phonebook[count].setName(a);//combines first and last name and sets the phonebook entry with it.
-//		phonebook[count].setNumber(c);//sets the number
-//		count++;//increment count for the next entry
-//	}
-
+	LinkedList<Passenger> *flights[4];//creates the pointer for the array
+	for (int i = 0; i < 4; i++){//initialized each flight number
+		flights[i] = new OrderedLinkedList<Passenger>;
+	}
 	cout << "Please choose an operation:" << '\n';//fluff for pseudo UI
 	char userInput;//char to read command from user
 
 	while (userInput!='Q' && userInput!= 'q'){//runs until user chooses to quit
 		cout<<"A(Add)|S(Search)|D(Delete)|L(List)|Q(Quit)";//list of commands
 		string complianceCheckString;//to use sstream/check length
-		stringstream complianceCheck;//to copy user input into string and char
+
 		getline(cin, complianceCheckString);//get user input
-		complianceCheck << complianceCheckString;
-		complianceCheck>>userInput;//take whatever the user types and sets it in the character
 		if (complianceCheckString.length()>1) {//if user inputs more than a char
 			userInput = 'f';//FOR FAILURE TO COMPLY
+		} else {
+			stringstream complianceCheck;//to copy user input without prompting them again
+			complianceCheck << complianceCheckString;
+			complianceCheck>>userInput;//take whatever the user types and sets it in the character
 		}
-
-		cout << "Please enter the flight number:";
-
+		//LinkedList<Passenger> *test = new OrderedLinkedList<Passenger>;
+		int flightNumber;
 		switch (userInput){//switch statement looks cleaner than nested if loops.
 			case 'A'://capital and lowercase letters for better usability, wasn't sure how to force capitals
 			case 'a':
-				//addEntry(phonebook, count);//friend function that runs code to add an entry
+				flightNumber = getFlightNumber();
+				insertOrdered(flights[flightNumber]);//friend function that runs code to add an entry
 				break;
 			case 'S':
 			case 's':
-				//searchEntry(phonebook, count);//friend function to search
+				searchNode(flights);//friend function to search
 				break;
 			case 'D':
 			case 'd':
-				//deleteEntry(phonebook, count);//friend function to delete
+				flightNumber = getFlightNumber();
+				deleteNode(flights[flightNumber]);//friend function to delete
 				break;
 			case 'L':
 			case 'l':
-				//listEntries(phonebook, count);//friend function to list entries
+				flightNumber = getFlightNumber();
+				listFlight(flights[flightNumber]);//friend function to list entries
 				break;
 			case 'Q'://doesn't run any extra code on quitting, included just to avoid the default case
 			case 'q'://leaving a bad message before ending program
@@ -81,6 +75,28 @@ int main(){
 		if (userInput != 'q' && userInput != 'Q')//reset char so a \0 doesn't run previous operation again
 			userInput = 'f';
 	}
-	cout << "Thank you for using my phonebook!";//mostly a confirmation that the program ended successfully
+	for (int i=0; i<4;i++){
+		cout << "count for list "<<i<<" is "<<flights[i]->count<<'\n';
+	}
+	cout << "Thank you for using my flight database!";//mostly a confirmation that the program ended successfully
 	return 0;
+}
+
+int getFlightNumber(){
+	string input;//to use sstream/check length
+	while (true){
+		cout << "Please enter the flight number (100, 200, 300, 400):";
+		getline(cin, input);//get user input
+		if (input == "100"){
+			return 0;
+		} else if (input == "200"){
+			return 1;
+		} else if (input == "300"){
+			return 2;
+		} else if (input == "400"){
+			return 3;
+		} else {
+			cout << "That is not a valid flight number. Please try again." << '\n';
+		}
+	}
 }
