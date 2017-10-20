@@ -11,14 +11,14 @@
 using namespace std;
 template <class T>
 struct node{
-	T data;
-	node* next;
+	T data;//no m despite private
+	node* next;//no m despite private, no p despite pointer
 };
 
 template <class T>
 class LinkedList{
 	private:
-		LinkedList(const LinkedList&)=delete; //copy constructor
+		LinkedList(const LinkedList&)=delete; //no spaces between operator. copy constructor
 	public:
 		int count;
 		node<T> *head, *last;
@@ -70,7 +70,7 @@ void LinkedList<T>::insertFirst(T& item){
 	temp->next = head;
 	head = temp;
 	count++;
-	if(last==NULL) last = temp;
+	if(last == NULL) last = temp;
 }
 
 template <class T>
@@ -78,7 +78,7 @@ void LinkedList<T>::insertLast(T& item){
 	node<T> *newnode = new node<T>;
 	newnode->data = item;
 	newnode->next = NULL;
-	if(head==NULL){
+	if(head == NULL){
 		head = last = newnode;
 	}else{
 		last->next = newnode;
@@ -90,14 +90,14 @@ void LinkedList<T>::insertLast(T& item){
 template <class T>
 void LinkedList<T>::deleteNode(T& item){
 	if(head == NULL)
-		cerr<<"empty list";
+		cerr << "empty list";
 	else{
 		if(head->data == item){
 			node<T>* p = head;
 			head = head->next;
 			delete p;
 			count--;
-			if(head==NULL) last = NULL;
+			if(head == NULL) last = NULL;
 		}else{
 			node<T>* p = head;
 			node<T>* q = p->next;
@@ -105,7 +105,7 @@ void LinkedList<T>::deleteNode(T& item){
 				p = q;
 				q = q->next;
 			}
-			if(q!=NULL){
+			if(q != NULL){
 				p->next = q->next;
 				count--;
 				if(last == q) last = p;
@@ -129,7 +129,7 @@ void LinkedList<T>::destroylist(){
 
 template <class T>
 LinkedList<T>& LinkedList<T>::operator=(LinkedList<T>& list){
-	if(this!= &list){
+	if(this!= &list){//no space after c++ reserved word.
 		copylist(list);
 	}
 	return *this;
@@ -139,7 +139,7 @@ template <class T>
 ostream& operator<<(ostream& os, LinkedList<T>& list){
 	node<T> *p = list.head;
 	while(p!= NULL){
-		os<<p->data<<" "<<endl;
+		os << p->data << " " << endl;
 		p = p->next;
 	}
 	return os;

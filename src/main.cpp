@@ -1,16 +1,12 @@
 //============================================================================
 // Name        : airlinedb.cpp
-// Author      : 
+// Author      : Sean Hardin
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-//============================================================================
-// Name        : airlinedb.cpp
-// Author      :
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : runs a flight database, users can add, delete
+//				 search, list, and exit as prompted.
+//
+//				 i used my first assignment as the base for this so it looks similar.
 //============================================================================
 #include <iostream>
 #include "OrderedLinkedList.h"
@@ -20,12 +16,12 @@
 
 using namespace std;
 
-int getFlightNumber();
+int getFlightNumber();//prototype for function to save some space
 
 int main(){
 
 	cout << "***Sean Hardin's airline database application***"<< '\n';//introduction
-	LinkedList<Passenger> *flights[4];//creates the pointer for the array
+	LinkedList<Passenger> *flights[4];//creates array of pointers for the LinkedLists
 	for (int i = 0; i < 4; i++){//initialized each flight number
 		flights[i] = new OrderedLinkedList<Passenger>;
 	}
@@ -44,30 +40,29 @@ int main(){
 			complianceCheck << complianceCheckString;
 			complianceCheck>>userInput;//take whatever the user types and sets it in the character
 		}
-		//LinkedList<Passenger> *test = new OrderedLinkedList<Passenger>;
 		int flightNumber;
 		switch (userInput){//switch statement looks cleaner than nested if loops.
-			case 'A'://capital and lowercase letters for better usability, wasn't sure how to force capitals
-			case 'a':
+			case 'A' ://capital and lowercase letters for better usability, wasn't sure how to force capitals
+			case 'a' :
 				flightNumber = getFlightNumber();
 				insertOrdered(flights[flightNumber]);//friend function that runs code to add an entry
 				break;
-			case 'S':
-			case 's':
+			case 'S' ://I DISAGREE WITH THE SPACE BEFORE COLON.
+			case 's' :
 				searchNode(flights);//friend function to search
 				break;
-			case 'D':
-			case 'd':
+			case 'D' :
+			case 'd' :
 				flightNumber = getFlightNumber();
 				deleteNode(flights[flightNumber]);//friend function to delete
 				break;
-			case 'L':
-			case 'l':
+			case 'L' :
+			case 'l' :
 				flightNumber = getFlightNumber();
 				listFlight(flights[flightNumber]);//friend function to list entries
 				break;
-			case 'Q'://doesn't run any extra code on quitting, included just to avoid the default case
-			case 'q'://leaving a bad message before ending program
+			case 'Q' ://doesn't run any extra code on quitting, included just to avoid the default case
+			case 'q' ://leaving a bad message before ending program
 				break;
 			default://if user tries to type anything other than the listed commands
 				cout << "Please enter only the letter for the option you want." << '\n';
@@ -75,19 +70,20 @@ int main(){
 		if (userInput != 'q' && userInput != 'Q')//reset char so a \0 doesn't run previous operation again
 			userInput = 'f';
 	}
-	for (int i=0; i<4;i++){
-		cout << "count for list "<<i<<" is "<<flights[i]->count<<'\n';
+
+	for (int i = 0; i < 4; i++){//delete linkedlists after use
+		delete flights[i];
 	}
 	cout << "Thank you for using my flight database!";//mostly a confirmation that the program ended successfully
 	return 0;
 }
 
-int getFlightNumber(){
+int getFlightNumber(){//returns the index in flights for the flight number chosen
 	string input;//to use sstream/check length
 	while (true){
 		cout << "Please enter the flight number (100, 200, 300, 400):";
 		getline(cin, input);//get user input
-		if (input == "100"){
+		if (input == "100"){//ugly if elses cuz switch hates strings
 			return 0;
 		} else if (input == "200"){
 			return 1;

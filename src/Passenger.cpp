@@ -1,48 +1,58 @@
+/*
+ * Passenger.cpp
+ *
+ *  Created on: Oct 17, 2017
+ *      Author: Sean
+ *      passenger class, code for passenger functions and
+ *      operators is here.
+ */
 #include "Passenger.h"
 #include <iostream>
 using namespace std;
 
-	string Passenger::getFirstName(){
-		return fName;
+	string Passenger::getFirstName(){//gets first name
+		return mfName;
 	}
 
-	void Passenger::setFirstName(string s){
-		fName = s;
+	void Passenger::setFirstName(string& s){//sets first name
+		mfName = s;
 	}
 
-	string Passenger::getLastName(){
-		return lName;
+	string Passenger::getLastName(){//gets last name
+		return mlName;
 	}
 
-	void Passenger::setLastName(string s){
-		lName = s;
+	void Passenger::setLastName(string& s){//sets last name
+		mlName = s;
 	}
 
-	string Passenger::getAddress(){
-		return address;
+	string Passenger::getAddress(){//gets address
+		return maddress;
 	}
 
-	void Passenger::setAddress(string s){
-		address = s;
+	void Passenger::setAddress(string& s){//sets address
+		maddress = s;
 	}
 
-	string Passenger::getPhoneNo(){
-		return phoneNo;
+	string Passenger::getPhoneNo(){//gets phone number
+		return mphoneNo;
 	}
 
-	void Passenger::setPhoneNo(string s){
-		phoneNo = s;
+	void Passenger::setPhoneNo(string& s){//sets phone number
+		mphoneNo = s;
 	}
 
-	bool operator>(Passenger& p1, Passenger& p2){
-		return p1.lName >= p2.lName;
+	bool operator>(Passenger& p1, Passenger& p2){//compares 2 passengers by first and last name
+		if (p1.mlName == p2.mlName)
+			return p1.mfName >= p2.mfName;
+		return p1.mlName > p2.mlName;
 	}
 
-	bool operator==(Passenger& p1, Passenger& p2){
-		return (p1.lName == p2.lName) && (p1.fName == p2.fName);
+	bool operator==(Passenger& p1, Passenger& p2){//compares if passengers share last name
+		return (p1.mlName == p2.mlName) && (p1.mfName == p2.mfName);
 	}
 
-	ostream& operator<<(ostream& os, Passenger p){
+	ostream& operator<<(ostream& os, Passenger& p){//converts passenger to ostream
 		os << p.getFirstName() << ' ' << p.getLastName() << " ["
 				<< p.getAddress() << "] [" << p.getPhoneNo()
 				<< "]" << '\n';

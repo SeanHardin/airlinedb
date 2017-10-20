@@ -3,8 +3,8 @@
  *
  *  Created on: Oct 17, 2017
  *      Author: Sean
+ *      passenger header, prototypes for the passenger class
  */
-
 #ifndef PASSENGER_H_
 #define PASSENGER_H_
 
@@ -12,25 +12,23 @@
 using namespace std;
 
 class Passenger {
-	string fName;
-	string lName;
-	string address;
-	string phoneNo;
+	string mfName;
+	string mlName;
+	string maddress;
+	string mphoneNo;
+
 public:
-	string getFirstName();
-	void setFirstName(string);
+	string getFirstName();//definitions in cpp file.
+	void setFirstName(string&);
 	string getLastName();
-	void setLastName(string);
+	void setLastName(string&);
 	string getAddress();
-	void setAddress(string);
+	void setAddress(string&);
 	string getPhoneNo();
-	void setPhoneNo(string);
+	void setPhoneNo(string&);
 	friend bool operator>(Passenger&, Passenger&);
 	friend bool operator==(Passenger&, Passenger&);
-	friend ostream& operator<<(ostream& os, Passenger);
+	friend ostream& operator<<(ostream& os, Passenger&);
 };
-
-
-
 
 #endif /* PASSENGER_H_ */
