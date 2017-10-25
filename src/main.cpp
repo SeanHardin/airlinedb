@@ -10,6 +10,7 @@
 //============================================================================
 #include <iostream>
 #include "OrderedLinkedList.h"
+#include "Passenger.h"
 #include <string>
 #include <sstream>
 
@@ -19,9 +20,8 @@ using namespace std;
 int getFlightNumber();//prototype for function to save some space
 
 int main(){
-
 	cout << "***Sean Hardin's airline database application***"<< '\n';//introduction
-	LinkedList<Passenger> *flights[4];//creates array of pointers for the LinkedLists
+	OrderedLinkedList<Passenger> *flights[4];//creates array of pointers for the LinkedLists
 	for (int i = 0; i < 4; i++){//initialized each flight number
 		flights[i] = new OrderedLinkedList<Passenger>;
 	}
@@ -44,28 +44,62 @@ int main(){
 		switch (userInput){//switch statement looks cleaner than nested if loops.
 			case 'A' ://capital and lowercase letters for better usability, wasn't sure how to force capitals
 			case 'a' :
+			{
+				Passenger p;//compare passengers with each other, couldn't compare first name without doing this
 				flightNumber = getFlightNumber();
-				insertOrdered(flights[flightNumber]);//friend function that runs code to add an entry
+				p.createFullPassenger();
+				flights[flightNumber]->insertOrdered(p);//friend function that runs code to add an entry
+				cout << '\n';
+			}
 				break;
 			case 'S' ://I DISAGREE WITH THE SPACE BEFORE COLON.
 			case 's' :
-				searchNode(flights);//friend function to search
+			{
+				Passenger p;
+				bool found = 0;
+				p.createPassengerName();
+				for (int i = 0; i < 4; i++){
+					p = flights[i]->searchNode(p);//function to search
+					if (p.getAddress()!=""){//only print if a match is found, if it was, p would be changed to one with address.
+						cout << "Flight Number: " << (i+1)*100 << '\n' <<
+								"First name: " << p.getFirstName() << '\n' <<
+								"Last name: " << p.getLastName() << '\n' <<
+								"Address: " << p.getAddress() << '\n' <<
+								"Phone: " << p.getPhoneNo() << '\n' << '\n';
+						found = 1;
+						string temp = "";
+						p.setAddress(temp);
+					}
+				}
+				if (!found)
+					cout << "That person is not in any of our flights." << '\n' << '\n';
+			}
 				break;
 			case 'D' :
 			case 'd' :
+			{
+				Passenger p;
 				flightNumber = getFlightNumber();
-				deleteNode(flights[flightNumber]);//friend function to delete
+				if (flights[flightNumber]->head != NULL){
+					p.createPassengerName();
+					bool deleted = flights[flightNumber]->deleteNode(p);//friend function to delete
+					if (deleted)
+						cout << p.getFirstName() << ' ' << p.getLastName() << " has been removed from the flight." << '\n' << '\n';
+				} else
+					cout << "That flight is empty, nobody to delete." << '\n' << '\n';
+			}
 				break;
 			case 'L' :
 			case 'l' :
 				flightNumber = getFlightNumber();
-				listFlight(flights[flightNumber]);//friend function to list entries
+				flights[flightNumber]->listFlight();//function to list entries
+				cout << '\n';
 				break;
 			case 'Q' ://doesn't run any extra code on quitting, included just to avoid the default case
 			case 'q' ://leaving a bad message before ending program
 				break;
 			default://if user tries to type anything other than the listed commands
-				cout << "Please enter only the letter for the option you want." << '\n';
+				cout << "Please enter only the letter for the option you want." << '\n' << '\n';
 		}
 		if (userInput != 'q' && userInput != 'Q')//reset char so a \0 doesn't run previous operation again
 			userInput = 'f';
@@ -96,3 +130,5 @@ int getFlightNumber(){//returns the index in flights for the flight number chose
 		}
 	}
 }
+
+

@@ -12,23 +12,27 @@
 using namespace std;
 
 class Passenger {
-	string mfName;
-	string mlName;
-	string maddress;
-	string mphoneNo;
+		string mfName;
+		string mlName;
+		string maddress;
+		string mphoneNo;
 
-public:
-	string getFirstName();//definitions in cpp file.
-	void setFirstName(string&);
-	string getLastName();
-	void setLastName(string&);
-	string getAddress();
-	void setAddress(string&);
-	string getPhoneNo();
-	void setPhoneNo(string&);
-	friend bool operator>(Passenger&, Passenger&);
-	friend bool operator==(Passenger&, Passenger&);
-	friend ostream& operator<<(ostream& os, Passenger&);
+	public:
+		Passenger();
+		string getFirstName();//definitions in cpp file.
+		void setFirstName(string&);
+		string getLastName();
+		void setLastName(string&);
+		string getAddress();
+		void setAddress(string&);
+		string getPhoneNo();
+		void setPhoneNo(string&);
+		friend bool operator>(Passenger&, Passenger&);
+		friend bool operator==(Passenger&, Passenger&);
+		friend ostream& operator<<(ostream& os, Passenger&);
+		void createFullPassenger();
+		void createPassengerName();
+		bool noNumbers(string&);//check if string has numbers
 };
 
 #endif /* PASSENGER_H_ */

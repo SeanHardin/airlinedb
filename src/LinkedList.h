@@ -18,7 +18,8 @@ struct node{
 template <class T>
 class LinkedList{
 	private:
-		LinkedList(const LinkedList&)=delete; //no spaces between operator. copy constructor
+		//LinkedList(const LinkedList&)=delete; // copy constructor
+		//THIS KEEPS MAKING MY COMPILER YELL AT ME SO IT DIES.
 	public:
 		int count;
 		node<T> *head, *last;
